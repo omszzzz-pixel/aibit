@@ -54,12 +54,12 @@ export default function TradingChart({
 
       if (json.code === 0 && json.data) {
         const bars: CandlestickData<Time>[] = json.data.map(
-          (bar: { ts: number; o: string; h: string; l: string; c: string }) => ({
-            time: (Math.floor(bar.ts / 1000)) as Time,
-            open: parseFloat(bar.o),
-            high: parseFloat(bar.h),
-            low: parseFloat(bar.l),
-            close: parseFloat(bar.c),
+          (bar: { data: { ts: number; o: string; h: string; l: string; c: string } }) => ({
+            time: (Math.floor(bar.data.ts / 1000)) as Time,
+            open: parseFloat(bar.data.o),
+            high: parseFloat(bar.data.h),
+            low: parseFloat(bar.data.l),
+            close: parseFloat(bar.data.c),
           })
         );
         return bars.sort((a, b) => (a.time as number) - (b.time as number));
