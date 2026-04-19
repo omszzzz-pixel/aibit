@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import AppHeader from "../../components/AppHeader";
 import BottomNav from "../../components/BottomNav";
+import TradingChart from "../../components/TradingChart";
 
 const TIME_FRAMES = ["1H", "1D", "1W", "1M", "3M", "1Y", "MAX"];
 
@@ -50,9 +51,9 @@ export default function TradeGeneralPage() {
           </div>
         </div>
 
-        {/* Chart Placeholder */}
+        {/* Chart */}
         <div className="overflow-hidden rounded-2xl border border-[#E5E8EB] bg-white">
-          <div className="w-full overflow-hidden rounded-xl" style={{ minHeight: 276 }} />
+          <TradingChart symbol="BTC-PERP" interval={timeFrame} />
           <div className="flex items-center border-t border-[#E5E8EB] px-3 py-2">
             <div className="flex min-w-0 flex-1 flex-nowrap">
               {TIME_FRAMES.map((tf) => (
