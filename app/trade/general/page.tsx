@@ -5,10 +5,14 @@ import { useState } from "react";
 import AppHeader from "../../components/AppHeader";
 import BottomNav from "../../components/BottomNav";
 import TradingChart from "../../components/TradingChart";
+import { useTicker } from "../../hooks/useTicker";
+import { useBalance } from "../../hooks/useBalance";
 
 const TIME_FRAMES = ["1H", "1D", "1W", "1M", "3M", "1Y", "MAX"];
 
 export default function TradeGeneralPage() {
+  const ticker = useTicker("BTC-PERP");
+  const balance = useBalance();
   const [timeFrame, setTimeFrame] = useState("1H");
   const [orderMode, setOrderMode] = useState<"enter" | "close">("enter");
   const [orderType, setOrderType] = useState<"limit" | "market">("limit");
@@ -45,8 +49,12 @@ export default function TradeGeneralPage() {
               </span>
             </button>
             <div className="text-right">
-              <p className="text-[22px] font-extrabold tabular-nums tracking-tight text-[#05C072]">68,516.3</p>
-              <p className="mt-0.5 text-[11px] text-[#05C072]">&#9650; +2.14%</p>
+              <p className={`text-[22px] font-extrabold tabular-nums tracking-tight ${ticker.changePercent >= 0 ? "text-[#05C072]" : "text-[#F04452]"}`}>
+                {ticker.loading ? "---" : ticker.price.toLocaleString("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
+              </p>
+              <p className={`mt-0.5 text-[11px] ${ticker.changePercent >= 0 ? "text-[#05C072]" : "text-[#F04452]"}`}>
+                {ticker.changePercent >= 0 ? "▲" : "▼"} {ticker.changePercent >= 0 ? "+" : ""}{ticker.changePercent.toFixed(2)}%
+              </p>
             </div>
           </div>
         </div>
@@ -138,7 +146,9 @@ export default function TradeGeneralPage() {
           {/* Balance */}
           <div className="mb-2.5 flex items-center justify-between px-4">
             <span className="text-xs text-[#6B7684]">사용가능 잔고</span>
-            <span className="text-xs font-semibold text-[#191F28]">0 USDT</span>
+            <span className="text-xs font-semibold text-[#191F28]">
+              {balance.loading ? "..." : `${balance.availableBalance.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT`}
+            </span>
           </div>
 
           {/* Price Input */}

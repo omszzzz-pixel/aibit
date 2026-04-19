@@ -5,10 +5,12 @@ import { useState } from "react";
 import AppHeader from "../../components/AppHeader";
 import BottomNav from "../../components/BottomNav";
 import TradingChart from "../../components/TradingChart";
+import { useTicker } from "../../hooks/useTicker";
 
 const TIME_FRAMES = ["1H", "1D", "1W", "1M", "3M", "1Y", "MAX"];
 
 export default function TradeHedgingPage() {
+  const ticker = useTicker("BTC-PERP");
   const [timeFrame, setTimeFrame] = useState("1H");
   const [sliderValue, setSliderValue] = useState(10);
 
@@ -40,8 +42,12 @@ export default function TradeHedgingPage() {
               </span>
             </button>
             <div className="text-right">
-              <p className="text-[22px] font-extrabold tabular-nums tracking-tight text-[#05C072]">68,516.3</p>
-              <p className="mt-0.5 text-[11px] text-[#05C072]">&#9650; +2.14%</p>
+              <p className={`text-[22px] font-extrabold tabular-nums tracking-tight ${ticker.changePercent >= 0 ? "text-[#05C072]" : "text-[#F04452]"}`}>
+                {ticker.loading ? "---" : ticker.price.toLocaleString("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
+              </p>
+              <p className={`mt-0.5 text-[11px] ${ticker.changePercent >= 0 ? "text-[#05C072]" : "text-[#F04452]"}`}>
+                {ticker.changePercent >= 0 ? "▲" : "▼"} {ticker.changePercent >= 0 ? "+" : ""}{ticker.changePercent.toFixed(2)}%
+              </p>
             </div>
           </div>
         </div>

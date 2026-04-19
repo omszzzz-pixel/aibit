@@ -5,6 +5,7 @@ import AppHeader from "../components/AppHeader";
 import BottomNav from "../components/BottomNav";
 
 const MENU_ITEMS = [
+  { href: "/mypage/api-key", icon: "🔑", iconBg: "#EBF3FF", label: "API Key 등록" },
   { href: "/mypage/notification-settings", icon: "🔔", iconBg: "#FFF8EC", label: "알림 설정" },
   { href: "/mypage/announcements", icon: "📢", iconBg: "#FFF0F1", label: "공지사항" },
   { href: "/mypage/support", icon: "🎧", iconBg: "#EBF3FF", label: "고객센터" },
