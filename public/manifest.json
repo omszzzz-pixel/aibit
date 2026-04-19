@@ -1,0 +1,9 @@
+{
+  "name": "AI-BIT",
+  "short_name": "AI-BIT",
+  "description": "AI-BIT 트레이딩",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0033a0",
+  "theme_color": "#0033a0"
+}
